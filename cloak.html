@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('stop.jpg'); /* Set background image */
+            background-size: cover; /* Ensure the background covers the whole screen */
+            background-repeat: no-repeat; /* Prevent repeating the image */
+            background-position: center center; /* Center the image */
+        }
+        .container {
+            font-family: serif;
+            color: white;
+            display: flex;
+            width: 100vw;
+            height: 100vh; /* Use full height of the viewport */
+            align-items: center;
+            justify-content: center;
+            flex-direction: column; /* Ensure proper positioning of content */
+        }
+        #display {
+            
+            background-color: transparent;
+            padding: 1rem;
+            border-radius: 10px;
+            font-size: 5rem;
+        }
+        .container span {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="display">
+            <!-- Display for hours, minutes, and seconds -->
+            <span id="hru">00</span>
+            <span>:</span>
+            <span id="mine">00</span>
+            <span>:</span>
+            <span id="sece">00</span>
+            <span id="ampm">Am</span>
+        </div>
+    </div>
+</body>
+<script>
+function displaytime() {
+    // Get current date and time
+    let dateTime = new Date();
+    let hr = dateTime.getHours();
+    let min = dateTime.getMinutes();
+    let sec = dateTime.getSeconds();
+    let ampm = document.getElementById('ampm');
+
+    // Convert 24-hour time to 12-hour time and set AM/PM
+    if (hr >= 12) {
+        ampm.innerHTML = 'Pm';
+        if (hr > 12) {
+            hr -= 12;
+        }
+    } else {
+        ampm.innerHTML = 'Am';
+    }
+
+    // Format hours, minutes, and seconds with leading zeros if needed
+    document.getElementById('hru').innerHTML = zero(hr);
+    document.getElementById('mine').innerHTML = zero(min);
+    document.getElementById('sece').innerHTML = zero(sec);
+}
+
+// Add leading zeros to single-digit numbers
+function zero(num) {
+    return num < 10 ? "0" + num : num;
+}
+
+// Call displaytime function every 250 milliseconds
+setInterval(displaytime, 250);
+</script>
+</html>
